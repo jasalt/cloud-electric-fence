@@ -3,13 +3,11 @@
 angular.module("myApp", ['ngRoute'])
 // Set routing
     .config(function($routeProvider, $httpProvider) {
-        // Set routings
         $routeProvider
             .when('/', {
                 templateUrl: 'ui.html',
                 controller: 'UiController'
             })
-        /* Other urls redirect to main page */
             .otherwise({
                 redirectTo: '/'
             });
@@ -35,9 +33,9 @@ angular.module("myApp", ['ngRoute'])
         $scope.setPower = function(state) {
             console.log('Setting power to ' + state);
             $scope.toState = state;
-            
+
             var params;
-            var relay_pin = 'D6'; //TODO set to D7 when in use
+            var relay_pin = 'D7'; //TODO for deployment set to D7 
 
             if (state) {
                 params = relay_pin + ',LOW';
