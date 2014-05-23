@@ -1,24 +1,42 @@
 <nav class="navbar navbar-default" role="navigation">
-    <ul class="nav navbar-nav">
-            <a class="navbar-brand" href="#">OLLI800 remote terminal</a>
-        </div>
-        <div class="navbar-header">
-    </ul>
+  <ul class="nav navbar-nav">
+    <a class="navbar-brand" href="#">OLLI800 remote terminal</a>
+</div>
+<div class="navbar-header">
+</ul>
 </nav>
 
+<button ng-class="{'btn-primary':state, 'btn-default':!state}" class="btn btn-block btn-primary">
+  <p class="indicator-text" ng-show="state">PÄÄLLÄ</p>
+  <p class="indicator-text" ng-show="!state">SAMMUKSISSA</p>
+  <span ng-show="state" class="glyphicon glyphicon-flash flash-icon"></span>
+  <span ng-show="!state" class="glyphicon glyphicon-off flash-icon"></span>
+</button>
 
 <div class="container well">
-    <h1 class="text-center toggle-title">Toggle ON/OFF</h1>
-    <button class="btn btn-block btn-success toggle-button" ng-if="state" ng-click="toggle()">ON</button>
-    <button class="btn btn-block btn-warning toggle-button" ng-if="!state" ng-click="toggle()">OFF</button>
+  <button ng-class="{'btn-danger': !state}" class="btn btn-block toggle-button" ng-click="setPower(false)">OFF</button>
+  <button ng-class="{'btn-success': state}" class="btn btn-block toggle-button" ng-click="setPower(true)">ON</button>
+</div>
+
+<div ng-if="connectionError">
+  <h3>Yhdistämisvirhe!</h3>
+  <p>Releen mikro-ohjaimen WIFI on varmaankin poikki. Kokeile käynnistää se uusiksi. kytkemällä USB-virtalähde uudelleen.</p>
+  <p>Vihreä nopeasti vilkkuva valo: etsii verkkoa. Sinivihreä/syaani pulssi: yhteys ok.</p>
+  <p>{{error}}</p>
+</div>
+
+<div ng-if="error">
+  <p>Perkeles, nyt saattoi mennä joku pahasti vikaan. Virhekoodi:</p>
+  <p>{{error}}</p>
 </div>
 
 
-<div class="container well">
-    <h1 class="text-center">Voltage level (todo)</h1>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-            Testing 60%
-        </div>
-    </div>
-</div>
+
+<!-- <div class="container well"> -->
+<!--   <h1 class="text-center">Voltage level (todo)</h1> -->
+<!--   <div class="progress"> -->
+<!--     <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"> -->
+<!--       Testing 60% -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->

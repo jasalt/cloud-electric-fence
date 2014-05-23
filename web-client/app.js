@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module("myApp", ['ngRoute'])
+// Set routing
     .config(function($routeProvider, $httpProvider) {
         // Set routings
         $routeProvider
@@ -12,15 +13,8 @@ angular.module("myApp", ['ngRoute'])
             .otherwise({
                 redirectTo: '/'
             });
-
-        //Enable cross domain calls
-        $httpProvider.defaults.useXDomain = true;
-
-        //Remove the header used to identify ajax call  that would prevent CORS from working
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-        
     })
-
+// Application logic
     .controller('UiController', function ($scope, $http) {
         var DEVICE_ID = secret_device_id;
         var TOKEN = secret_access_token;
@@ -29,57 +23,31 @@ angular.module("myApp", ['ngRoute'])
 
         $scope.state = true;
 
-        $scope.toggle = function() {
-
-            setPower(true);
-        };
-
-        // Set access token and content type for all requests
-
-        //$http.defaults.headers.common['access_token'] = TOKEN;
-        $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded' ;
-        // delete $http.defaults.headers.common['X-Requested-With'];
-        // $http.defaults.useXDomain = true;
-
-
-        //TODO set CORS
-
         /**
          * Signal device to set state.
          * @param {Boolean} state
-         * - true: set on
+         * - true: electricity set on
          * - false: set off
          * @return
          * - string with error message if errors
          * - null if all okay,
          */
-        function setPower(state) {
-            var payload = {};
+        $scope.setPower = function(state) {
+            console.log('Setting power to ' + state);
+            $scope.toState = state;
+            
+            var params;
+            var relay_pin = 'D6'; //TODO set to D7 when in use
 
-            // if (state) {
-            //     payload = { 'params': 'D7,HIGH' };
-            // } else {
-            //     payload = { 'params': 'D7,LOW' };
-            // }
+            if (state) {
+                params = relay_pin + ',LOW';
+            } else {
+                params = relay_pin + ',HIGH';
+            }
 
             var url = 'https://api.spark.io/v1/devices/' + DEVICE_ID + '/digitalwrite';
-            // When putting the token in the body, content type must be application/x-www-form-urlencoded
-
-            console.log('post to ' + url);
-            // $http.post(url, payload)
-            //     .success(function(data, status, headers, config) {
-            //         console.log(status);
-            //         return;
-            //         // this callback will be called asynchronously
-            //         // when the response is available
-            //     })
-            //     .error(function(data, status, headers, config) {
-            //         // called asynchronously if an error occurs
-            //         // or server returns response with an error status.
-            //         console.log(status);
-            //         return data;
-            //     });
-            var xsrf = $.param({params: "D7,LOW",access_token: TOKEN});
+            var xsrf = $.param({params: params,access_token: TOKEN});
+            console.log('Payload: ' + xsrf);
             $http({
                 url: url,
                 method: "POST",
@@ -87,20 +55,22 @@ angular.module("myApp", ['ngRoute'])
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            }).success(function(response) {  
-                $scope.response = response;
-                console.log(JSON.stringify(response, null, ' '));
-            }).error(function(error) {
-                $scope.error = error;
+            }).success(function(data, status, headers, config) {
+                console.log(status);
+                console.log(JSON.stringify(data, null, ' '));
+                if (data.return_value == 1){
+                    $scope.state = $scope.toState;
+                    $scope.error = null;
+                } else {
+                    //TODO better error handling
+                    console.log('Errors setting state..');
+                    $scope.error = data;
+                    if (data.connected != true){
+                        $scope.connectionError = data;
+                    }
+                }
+            }).error(function(data, status, headers, config) {
+                $scope.error = data;
             });
-            //$scope.state = !$scope.state;
-        }
-    }
-               )
-;
-
-
-
-
-
-
+        };
+    });

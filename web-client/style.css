@@ -1,3 +1,10 @@
+.indicator-text {
+    font-size: 2em;
+}
+
 .toggle-button {
-    font-size: 8em;
+    font-size: 3em;
+}
+.flash-icon {
+    font-size: 2em;
 }
