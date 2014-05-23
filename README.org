@@ -1,2 +1,17 @@
 * Web UI for electric fence
-Model OLLI800
+Model Farmcomp OLLI800
+
+** Controller circuit
+5V relay controlled by Spark Core running stock Tinker firmware.
+*** TODO [#B] Circuit diagram
+
+** Web client
+*** TODO [#A] Send requests to Spark Tinker API
+**** [#A] Save access token securely
+***** [#A] Load from static text file
+***** [#B] Input token on client 
+And save to localstorage or somewhere?
+**** Add angular service
+
+** [#C] Documentation
+*** TODO [#C] Add video, pictures
