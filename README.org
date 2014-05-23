@@ -1,17 +1,21 @@
 * Web UI for electric fence
 Model Farmcomp OLLI800
 
-** Controller circuit
+** Changelog
+- v0.1
+
+  Switching relay through web works. Client files and keys served statically from a secret place.
+
+** Web client todo
+*** Input secrets on client
+Type keys on client or use barcode
+Save to localstorage or some better place.
+
+** Controller circuit todo
 5V relay controlled by Spark Core running stock Tinker firmware.
-*** TODO [#B] Circuit diagram
+*** TODO Monitor voltage drop
+Voltage is around 2000V to 8000V.
+*** Draw a circuit diagram for documentation
 
-** Web client
-*** TODO [#A] Send requests to Spark Tinker API
-**** [#A] Save access token securely
-***** [#A] Load from static text file
-***** [#B] Input token on client 
-And save to localstorage or somewhere?
-**** Add angular service
-
-** [#C] Documentation
-*** TODO [#C] Add video, pictures
+** Documentation
+*** Add video, pictures
