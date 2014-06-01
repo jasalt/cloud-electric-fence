@@ -7,15 +7,16 @@
 </nav>
 
 <button ng-class="{'btn-primary':state, 'btn-default':!state}" class="btn btn-block btn-primary">
-  <p class="indicator-text" ng-show="state">PÄÄLLÄ</p>
-  <p class="indicator-text" ng-show="!state">SAMMUKSISSA</p>
+  <p class="indicator-text" ng-show="state && !buttonsDisabled">PÄÄLLÄ</p>
+  <p class="indicator-text" ng-show="!state && !buttonsDisabled">SAMMUKSISSA</p>
+  <p class="indicator-text" ng-show="buttonsDisabled">ODOTA...</p>
   <span ng-show="state" class="glyphicon glyphicon-flash flash-icon"></span>
   <span ng-show="!state" class="glyphicon glyphicon-off flash-icon"></span>
 </button>
 
 <div class="container well">
-  <button ng-class="{'btn-danger': !state}" class="btn btn-block toggle-button" ng-click="setPower(false)">OFF</button>
-  <button ng-class="{'btn-success': state}" class="btn btn-block toggle-button" ng-click="setPower(true)">ON</button>
+  <button ng-class="{'btn-danger': !state, 'disabled':buttonsDisabled}" class="btn btn-block toggle-button" ng-click="setPower(false)">OFF</button>
+  <button ng-class="{'btn-success': state, 'disabled':buttonsDisabled}" class="btn btn-block toggle-button" ng-click="setPower(true)">ON</button>
 </div>
 
 <div ng-if="connectionError">

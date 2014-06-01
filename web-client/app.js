@@ -20,6 +20,8 @@ angular.module("myApp", ['ngRoute'])
         console.log("token is " + TOKEN);
 
         $scope.state = true;
+        // Disable buttons after click during http-action
+        $scope.buttonsDisabled = false;
 
         /**
          * Signal device to set state.
@@ -32,10 +34,11 @@ angular.module("myApp", ['ngRoute'])
          */
         $scope.setPower = function(state) {
             console.log('Setting power to ' + state);
+            $scope.buttonsDisabled = true;
             $scope.toState = state;
 
             var params;
-            var relay_pin = 'D7'; //TODO for deployment set to D7 
+            var relay_pin = 'D7'; //TODO for deployment set to D7
 
             if (state) {
                 params = relay_pin + ',LOW';
@@ -54,6 +57,8 @@ angular.module("myApp", ['ngRoute'])
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).success(function(data, status, headers, config) {
+                $scope.buttonsDisabled = false;
+
                 console.log(status);
                 console.log(JSON.stringify(data, null, ' '));
                 if (data.return_value == 1){
@@ -68,6 +73,8 @@ angular.module("myApp", ['ngRoute'])
                     }
                 }
             }).error(function(data, status, headers, config) {
+                $scope.buttonsDisabled = false;
+
                 $scope.error = data;
             });
         };
