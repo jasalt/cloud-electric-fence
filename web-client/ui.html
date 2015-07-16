@@ -1,22 +1,22 @@
 <nav class="navbar navbar-default" role="navigation">
-  <ul class="nav navbar-nav">
-    <a class="navbar-brand" href="#">OLLI800 remote terminal</a>
-</div>
-<div class="navbar-header">
-</ul>
+  <h1 class="text-center">
+    Sähköpaimen etäohjaus
+</h3>
 </nav>
 
-<button ng-class="{'btn-primary':state, 'btn-default':!state}" class="btn btn-block btn-primary">
-  <p class="indicator-text" ng-show="state && !buttonsDisabled">PÄÄLLÄ</p>
-  <p class="indicator-text" ng-show="!state && !buttonsDisabled">SAMMUKSISSA</p>
-  <p class="indicator-text" ng-show="buttonsDisabled">ODOTA...</p>
-  <span ng-show="state" class="glyphicon glyphicon-flash flash-icon"></span>
-  <span ng-show="!state" class="glyphicon glyphicon-off flash-icon"></span>
-</button>
+<div class="well">
+  <button ng-class="{'btn-primary':state, 'btn-default':!state}" class="btn btn-block btn-primary">
+    <p class="indicator-text" ng-show="state && !buttonsDisabled">PÄÄLLÄ</p>
+    <p class="indicator-text" ng-show="!state && !buttonsDisabled">SAMMUKSISSA</p>
+    <p class="indicator-text" ng-show="buttonsDisabled">ODOTA...</p>
+    <span ng-show="state" class="glyphicon glyphicon-flash flash-icon"></span>
+    <span ng-show="!state" class="glyphicon glyphicon-off flash-icon"></span>
+  </button>
 
-<div class="container well">
-  <button ng-class="{'btn-danger': !state, 'disabled':buttonsDisabled}" class="btn btn-block toggle-button" ng-click="setPower(false)">OFF</button>
-  <button ng-class="{'btn-success': state, 'disabled':buttonsDisabled}" class="btn btn-block toggle-button" ng-click="setPower(true)">ON</button>
+  <div class="well well-lg">
+    <button ng-class="{'btn-danger': !state, 'disabled':buttonsDisabled}" class="btn btn-lg btn-block toggle-button" ng-click="setPower(false)">OFF</button>
+    <button ng-class="{'btn-success': state, 'disabled':buttonsDisabled}" class="btn btn-lg btn-block toggle-button" ng-click="setPower(true)">ON</button>
+  </div>
 </div>
 
 <div ng-if="connectionError">
@@ -30,8 +30,6 @@
   <p>Perkeles, nyt saattoi mennä joku pahasti vikaan. Virhekoodi:</p>
   <p>{{error}}</p>
 </div>
-
-
 
 <!-- <div class="container well"> -->
 <!--   <h1 class="text-center">Voltage level (todo)</h1> -->
