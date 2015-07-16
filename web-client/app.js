@@ -38,7 +38,7 @@ angular.module("myApp", ['ngRoute'])
             $scope.toState = state;
 
             var params;
-            var relay_pin = 'D7'; //TODO for deployment set to D7
+            var relay_pin = 'D0';
 
             if (state) {
                 params = relay_pin + ',LOW';
